@@ -31,3 +31,7 @@ VALUES(42, 'aa', 2, 1, '2023-07-29', NULL);
 ```
 composer dump-autoload -o
 ```
+
+## renam file src/.env_example
+
+## sesuaikan data config
