@@ -1,6 +1,9 @@
 <?php
+namespace MyApp\Controllers;
 
-class Coba
+use MyApp\Core\BaseController;
+
+class Coba extends BaseController
 {
   public function index()
   {

@@ -5,6 +5,7 @@ class App
 {
   private $controllerFile = 'DefaultApp';
   private $contollerMethod = 'index';
+  private $namespace = 'MyApp\Controllers';
   private $parametr = [];
 
   private const DEFULT_GET = 'GET';
@@ -22,6 +23,11 @@ class App
   public function setDefaultMethod($method)
   {
     $this->contollerMethod = $method;
+  }
+
+  public function setNamespace($namespace)
+  {
+    $this->namespace = $namespace;
   }
 
   public function get($uri, $callback)
@@ -102,11 +108,13 @@ class App
               }
             }
 
-            if (isset($handler['handler'][0]) && class_exists($handler['handler'][0])) {
+            if (isset($handler['handler'][0]) && class_exists($this->namespace . '\\' . $handler['handler'][0])) {
               $this->controllerFile = $handler['handler'][0];
             }
             // create objeknya
-            $this->controllerFile = new $this->controllerFile;
+            $fn = $this->namespace . '\\' . $this->controllerFile;
+            $this->controllerFile = new $fn();
+            // $this->controllerFile = new $this->controllerFile;
             $execute = 1;
             if (isset($handler['handler'][1]) && method_exists($this->controllerFile, $handler['handler'][1])) {
               $this->contollerMethod = $handler['handler'][1];
@@ -120,8 +128,9 @@ class App
 
     // buat objeknya
     if ($execute == 0) {
-      require_once __DIR__ . '/../controllers/' . $this->controllerFile . '.php';
-      $this->controllerFile = new $this->controllerFile;
+      // require_once __DIR__ . '/../controllers/' . $this->controllerFile . '.php';
+      $fn = $this->namespace . '\\' . $this->controllerFile;
+      $this->controllerFile = new $fn();
     }
 
     // paremter sisanya

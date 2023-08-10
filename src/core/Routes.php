@@ -8,6 +8,7 @@ class Routes
     $router = new App();
     $router->setDefaultController('DefaultApp');
     $router->setDefaultMethod('index');
+    $router->setNamespace('MyApp\Controllers');
 
     // $router->get('/',['DefaultApp','index']);
     $router->get('/barang', ['Barang', 'index']);
