@@ -1,5 +1,8 @@
 <?php
+namespace MyApp\Models;
+
 use MyApp\Core\Database;
+use PDO;
 
 class BarangModel extends Database
 {
@@ -14,32 +17,17 @@ class BarangModel extends Database
 
   public function getAll()
   {
-    // return $this->get(['barang_id'=>1,'nama_barang'=>'Sarung'])->fetchAll();
-    return $this->get()->fetchAll();
+    return $this->get()->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function getById($id)
   {
-    // $query = "SELECT * FROM barang WHERE barang_id = ?";
-    // return $this->qry($query, [$id])->fetch();
-    return $this->get(['barang_id' => $id])->fetch();
+    return $this->get(['barang_id' => $id])->fetch(PDO::FETCH_ASSOC);
   }
 
   // insert data
   public function insert(array $data)
   {
-    // -- ini contoh dengan query custom --
-    // $query = "
-    // INSERT INTO barang (
-    //   nama_barang, 
-    //   jumlah, 
-    //   harga_satuan, 
-    //   expire_date) 
-    // VALUES (?, ?, ?, ?)";
-    // return $this->qry($query, [
-    //   $data['nama_barang'], $data['jumlah'],
-    //   $data['harga_satuan'], $data['kadaluarsa']
-    // ]);
     $table = [
       'nama_barang' => $data['nama_barang'],
       'jumlah' => $data['jumlah'],
@@ -52,17 +40,6 @@ class BarangModel extends Database
   // update data
   public function update(array $data)
   {
-    // -- ini contoh dengan query custom --
-    // $query = "UPDATE barang SET 
-    //   nama_barang = ?, 
-    //   jumlah = ?, 
-    //   harga_satuan = ?, 
-    //   expire_date = ? 
-    //   WHERE barang_id = ?";
-    // return $this->qry($query, [
-    //   $data['nama_barang'], $data['jumlah'],
-    //   $data['harga_satuan'], $data['kadaluarsa'], $data['id']
-    // ]);
     $table = [
       'nama_barang' => $data['nama_barang'],
       'jumlah' => $data['jumlah'],
@@ -78,8 +55,6 @@ class BarangModel extends Database
   // delete data
   public function delete($id)
   {
-    // $query = "DELETE FROM barang WHERE barang_id = ?";
-    // return $this->qry($query, [$id]);
     return $this->deleteData(['barang_id' => $id]);
   }
 }

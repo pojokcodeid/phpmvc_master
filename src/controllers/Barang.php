@@ -12,7 +12,7 @@ class Barang extends BaseController
 
   public function __construct()
   {
-    $this->barang = $this->model('BarangModel');
+    $this->barang = $this->model('MyApp\Models\BarangModel');
   }
 
   public function index()
