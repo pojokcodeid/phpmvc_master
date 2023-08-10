@@ -17,7 +17,7 @@ class Routes
     $router->post('/barang/edit', ['Barang', 'edit_barang2']);
 
     // gunakan segment untuk variable yang dinamis
-    // $router->get('/coba/(:segment)/(:segment)/(:segment', ['Coba', 'param2']);
+    // $router->get('/coba/(:segment)/(:segment)/(:segment)', ['Coba', 'param2']);
     $router->get('/coba/(:id)/(:nama)/(:alamat', ['Coba', 'param2']);
 
     $router->run();
