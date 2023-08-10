@@ -88,7 +88,12 @@ class App
             }
           }
 
-          if (count($param) == count($paramURL)) {
+          if (
+            implode('/', $new_path) == implode('/', $new_url) &&
+            count($param) == count($paramURL) &&
+            $requestMethod == $handler['method']
+          ) {
+
             for ($i = 0; $i < count($param); $i++) {
               if (str_contains(implode('/', $param), 'segment')) {
                 $objVariable[] = $paramURL[$i];
@@ -96,13 +101,7 @@ class App
                 $objVariable[$param[$i]] = $paramURL[$i];
               }
             }
-          }
 
-          if (
-            implode('/', $new_path) == implode('/', $new_url) &&
-            count($param) == count($paramURL) &&
-            $requestMethod == $handler['method']
-          ) {
             if (isset($handler['handler'][0]) && class_exists($handler['handler'][0])) {
               $this->controllerFile = $handler['handler'][0];
             }
