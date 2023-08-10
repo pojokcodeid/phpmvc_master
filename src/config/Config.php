@@ -14,7 +14,5 @@ class Config
     if (getenv('MIGRATE')) {
       require_once '../src/config/migrate.php';
     }
-
-    require_once '../src/core/Autoload.php';
   }
 }
