@@ -68,12 +68,13 @@ class App
       $new_url = [];
       $param = [];
       $paramURL = [];
+      $objVariable = [];
       if (count($path) == count($url)) {
         foreach ($path as $value) {
           if (!str_contains($value, ':')) {
             array_push($new_path, $value);
           } else {
-            array_push($param, $value);
+            array_push($param, str_replace(')', '', str_replace('(', '', str_replace(':', '', $value))));
           }
         }
 
@@ -84,6 +85,16 @@ class App
               array_push($new_url, $url[$i]);
             } else {
               array_push($paramURL, $url[$i]);
+            }
+          }
+
+          if (count($param) == count($paramURL)) {
+            for ($i = 0; $i < count($param); $i++) {
+              if (str_contains(implode('/', $param), 'segment')) {
+                $objVariable[] = $paramURL[$i];
+              } else {
+                $objVariable[$param[$i]] = $paramURL[$i];
+              }
             }
           }
 
@@ -101,7 +112,8 @@ class App
             if (isset($handler['handler'][1]) && method_exists($this->controllerFile, $handler['handler'][1])) {
               $this->contollerMethod = $handler['handler'][1];
             }
-            $url = $paramURL;
+            // $url = $paramURL;
+            $url = $objVariable;
           }
         }
       }
@@ -115,8 +127,10 @@ class App
 
     // paremter sisanya
     if (!empty($url)) {
-      $this->parametr = array_values($url);
+      // $this->parametr = array_values($url);
+      $this->parametr = $url;
     }
+
 
     // jalankan contoller dan param
     call_user_func_array([$this->controllerFile, $this->contollerMethod], $this->parametr);
