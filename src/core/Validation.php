@@ -1,6 +1,8 @@
 <?php
 namespace MyApp\Core;
 
+use MyApp\Models\UniqueModel;
+
 class Validation
 {
   const DEFAULT_VALIDATION_ERRORS = [
@@ -131,7 +133,8 @@ class Validation
     if (!isset($data[$field])) {
       return true;
     }
-    // disini cek ke database
-    return false;
+    $uniqueMOdel = new UniqueModel();
+    $stmt = $uniqueMOdel->check($table, $column, $data[$field]);
+    return $stmt->fetchColumn() === false;
   }
 }
