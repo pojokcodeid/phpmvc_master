@@ -48,8 +48,8 @@
   <nav class="navbar navbar-expand-lg bg-body fixed-top shadow-sm z-3">
     <div class="container-fluid">
       <div class="d-flex justify-content-cnter title-content">
-        <a class="navbar-brand" href="./index.html">
-          <img id="logo" src="#" alt="Pojok Code" width="180">
+        <a class="navbar-brand" href="#">
+          Pojok Code
         </a>
         <span></span>
       </div>
